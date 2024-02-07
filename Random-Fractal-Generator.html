@@ -1,0 +1,105 @@
+<html><head>
+  <style>
+    #tree {
+      position: relative;
+      cursor: pointer;
+    }
+  </style><title>Дерево Пифагора</title><center><script type="text/javascript">
+      // функция рисует под углом angle линию из указанной точки длиной ln
+   //   window.onload = function Ireb() {
+      function drawLine(x, y, ln, angle) {
+        context.moveTo(x, y);
+        context.lineTo(Math.round(x + ln * Math.cos(angle)), Math.round(y - ln * Math.sin(angle)));
+      }
+      // Функция рисует дерево
+      function drawTree(x, y, ln, minLn, angle) {
+        if (ln > minLn) {
+          ln = ln * 0.75;
+          var random = Math.floor(Math.random() + Math.random()+Math.random()* Math.random() + Math.random()+Math.random()*2 );
+          drawLine(x, y, ln, angle);
+          x = Math.round(x + ln * Math.cos(angle));
+          y = Math.round(y - ln * Math.sin(angle));
+          drawTree(x, y, ln, minLn, angle + Math.PI / 4);
+          drawTree(x, y, ln, minLn, angle - Math.PI / random);
+          // если поставить угол Math.PI/4 , то выйдет классическое дерево
+        }
+      }
+      // Инициализация переменных
+      function init() {
+           var canvas  = document.getElementById("tree"),
+            x       = 20 + (canvas.width / 2),
+            y       = -250 + canvas.height,  // положении ствола
+            ln = 120,                  // начальная длина линии
+            minLn   = 5;                    // минимальная длина линии
+        canvas.width  = 650; // Ширина холста
+        canvas.height = 600; // высота холста onchange="change()"
+      context = canvas.getContext('2d');
+ 
+        context.fillStyle   = '#fff'; // цвет фона
+        context.strokeStyle = '#020'; //цвет линий
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.lineWidth = 2; // ширина линий (this.innerHTML)
+        context.rect(0,500,5,5);
+        context.beginPath();
+        drawTree(x, y, ln, minLn, Math.PI / 2);
+        context.stroke();
+      }
+      
+    function moveI(){
+         
+          intervalID = setInterval(init, 1000);
+    }
+     
+
+  
+let intervalID;
+      
+       function moveII(){
+         
+       clearInterval(intervalID, 1000);
+       	
+       }
+	   
+ function MoveRight(){
+    
+      let start = Date.now();
+
+      let timerI = setInterval(function() {
+        let timePassed = Date.now() - start;
+
+        tree.style.right = timePassed / 6 + 'px';
+
+        if (timePassed > 2000) clearInterval(timerI);
+
+      }, 20);
+    }
+	
+	
+       function MoveLeft() {
+
+           let startI = Date.now();
+
+           let timer = setInterval(function () {
+               let timePassedI = Date.now() - startI;
+
+               tree.style.left = timePassedI / 6 + 'px';
+
+               if (timePassedI > 2000) clearInterval(timer);
+
+           }, 20);
+		   
+       }
+    </script></head></center><body>
+<table width="100%" border="1" cellspacing="1" cellpadding="4">
+   <caption align="bottom"></caption>
+   <tr> 
+    <th><input type="text" id="name" placeholder="положение ствола" onclick="(tree)"></th>
+	<th><input type="text" id="nameI" placeholder="минимальная длина линии" onclick=""></th>
+	<th><input type="text" id="nameII" placeholder="начальная длина линии" onclick="(this.innerHTML)"></th>
+   </tr></table>
+  
+<table width="100%" border="1" cellspacing="1" cellpadding="4">    
+<caption align="bottom">Generator Fractals</caption><tr> 
+<td><button onclick="moveI()">Start Random Fractals </button>
+<button onclick="moveII()">Stop Random Fractals</button>
+</td></tr></table><br><canvas id="tree"></canvas></body></html>
