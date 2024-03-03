@@ -1,4 +1,4 @@
-[![image.png](https://i.postimg.cc/J0Gjpq0B/image.png)](https://postimg.cc/8fgF5Lh1)
+![image](https://github.com/MakarovDs777/Random-Fractal-Generator/assets/42496353/7aaac447-249a-468c-a7ad-828d99f1d068)
 # Random-Fractal-Generator
 Позволяет генерировать случайные фракталы со значениями.
 
