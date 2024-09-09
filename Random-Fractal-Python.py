@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-
+import random 
+import math
 def draw_fractal_tree(x, y, z, length, min_length, angle, axis):
     if length > min_length:
         # Рассчитываем координаты следующей точки
@@ -14,7 +15,7 @@ def draw_fractal_tree(x, y, z, length, min_length, angle, axis):
 
         # Рекурсивный вызов для левой и правой ветвей
         draw_fractal_tree(new_x, new_y, new_z, length * 0.75, min_length, angle - np.pi / 4, axis)
-        draw_fractal_tree(new_x, new_y, new_z, length * 0.75, min_length, angle + np.pi / 4, axis)
+        draw_fractal_tree(new_x, new_y, new_z, length * 0.75, min_length, angle + np.pi / random.randint(1,4), axis)
 
 # Создаем фигуру и ось для 3D отображения
 fig = plt.figure()
