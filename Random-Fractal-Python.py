@@ -1,46 +1,33 @@
-import turtle
-import random
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-def draw_line(t, x, y, ln, angle):
-    t.penup()
-    t.goto(x, y)
-    t.pendown()
-    t.setheading(angle)
-    t.forward(ln)
+def draw_fractal_tree(x, y, z, length, min_length, angle, axis):
+    if length > min_length:
+        # Рассчитываем координаты следующей точки
+        new_x = x + length * np.cos(angle)
+        new_y = y + length * np.sin(angle)
+        new_z = z + length * np.sin(angle)
 
-def draw_tree(t, x, y, ln, min_ln, angle, add_angle):
-    if ln <= min_ln:
-        return
-    
-    ln *= 0.75
-    draw_line(t, x, y, ln, angle)
-    
-    new_x = x + ln * turtle.cos(angle)
-    new_y = y - ln * turtle.sin(angle)
-    draw_tree(t, new_x, new_y, ln, min_ln, angle + add_angle, add_angle)
-    draw_tree(t, new_x, new_y, ln, min_ln, angle - random.randint(1, 20) / 180 * turtle.pi)
+        # Рисуем линию между текущей и следующей точками
+        axis.plot([x, new_x], [y, new_y], [z, new_z], 'k-')
 
-def init():
-    a = float(input("Введите положение ствола: "))
-    b = float(input("Введите минимальную длину линии: "))
-    c = float(input("Введите положение ствола: "))
-    d = float(input("Введите ширину линий: "))
-    e = float(input("Введите начальную длину линии: "))
-    f = float(input("Введите самоподобие: "))
+        # Рекурсивный вызов для левой и правой ветвей
+        draw_fractal_tree(new_x, new_y, new_z, length * 0.75, min_length, angle - np.pi / 4, axis)
+        draw_fractal_tree(new_x, new_y, new_z, length * 0.75, min_length, angle + np.pi / 4, axis)
 
-    canvas = turtle.Screen()
-    canvas.setup(800, 600)
-    canvas.bgcolor('#fff')
+# Создаем фигуру и ось для 3D отображения
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
 
-    t = turtle.Turtle()
-    t.speed(0)
-    t.width(d)
-    t.penup()
-    t.goto(20 + (canvas.window_width() / random.randint(1, 10)), -250 + canvas.window_height())
-    t.pendown()
+# Начальные параметры
+x, y, z = 0, 0, 0
+length = 100
+min_length = 5
+angle = np.pi / 2
 
-    draw_tree(t, t.xcor(), t.ycor(), e, a, turtle.pi / 2, b / 180 * turtle.pi)
+# Вызываем функцию для рисования фрактала
+draw_fractal_tree(x, y, z, length, min_length, angle, ax)
 
-    turtle.done()
-
-init()
+# Показываем график
+plt.show()
