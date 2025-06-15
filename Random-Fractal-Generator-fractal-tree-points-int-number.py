@@ -29,11 +29,11 @@ def draw_fractal_tree(x, y, z, length, min_length, angle_xy, angle_z, points):
 
 def save_points_to_file(filename, points):
     """
-    Сохраняет координаты точек в файл, преобразуя все числа в целые.
+    Сохраняет координаты точек в файл, преобразуя все числа в абсолютные целые.
     """
     try:
-        # Преобразуем все числа в целые
-        int_points = [int(round(coord)) for coord in points]
+        # Преобразуем все числа в абсолютные целые
+        int_points = [int(round(abs(coord))) for coord in points]
         with open(filename, 'w') as f:
             f.write(str(int_points))
         print(f"Points saved to {filename}")
@@ -53,8 +53,10 @@ points = []
 # Вызов функции для генерации фрактала
 draw_fractal_tree(x, y, z, length, min_length, angle_xy, angle_z, points)
 
-# Сохраняем точки в файл
+# Путь для сохранения файла
 output_path = os.path.join(os.path.expanduser('~'), 'Desktop', 'fractal_tree_points.txt')
+
+# Сохраняем точки в файл
 save_points_to_file(output_path, points)
 
 # Визуализация (оставляем без изменений)
